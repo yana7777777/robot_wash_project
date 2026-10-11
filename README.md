@@ -30,7 +30,7 @@
 
 ```bash
 # 1. Клонировать репозиторий
-git clone https://github.com/ТвоёИмя/robot_wash_project.git
+git clone https://github.com/yana7777777/robot_wash_project
 cd robot_wash_project
 
 # 2. Создать виртуальное окружение
@@ -70,6 +70,6 @@ shap — интерпретация моделей
 Jupyter Notebook — исследования
 
 Автор
-Чернова С.С.
+Чувакова Я.А.
 Программа переподготовки «Интеллектуальные системы анализа данных»
 Самарский университет, 2025–2026
