@@ -69,7 +69,7 @@ def _build_client_markups():
     rnd = random.Random(777)
     markups = {}
     for client in counterparties_sale:
-        markups[client] = round(rnd.uniform(1.35, 1.55), 3)
+        markups[client] = round(rnd.uniform(1.18, 1.28), 3)
     return markups
 
 CLIENT_MARKUPS = _build_client_markups()
@@ -295,7 +295,7 @@ def generate_month(year, month):
 
     # --- РАСХОДЫ ---
     # 2-4 партии закупки в месяц (удвоено)
-    n_purchases = max(2, round(1.6 * season))
+    n_purchases = max(3, round(2.3 * season))
     for _ in range(n_purchases):
         rows.append(make_expense_row(rand_date(), 'Закупка товара'))
         rows.append(make_expense_row(rand_date(), 'Доставка'))
