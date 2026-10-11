@@ -1,0 +1,17 @@
+ОТЧЁТ: ОБНАРУЖЕНИЕ АНОМАЛИЙ
+======================================================================
+
+Всего транзакций: 7656
+Признаков: 8
+
+Результаты методов:
+  Isolation Forest:      383 (5.00%)
+  One-Class SVM:         385 (5.03%)
+  Local Outlier Factor:  382 (4.99%)
+  Согласованные (≥2):    2 (0.03%)
+
+ТОП-10 аномалий по сумме:
+      date    counterparty      product_model  total_amount income_article expense_article
+2026-06-01 Leisuwash China Leisuwash 360 Plus    31367821.0            NaN  Закупка товара
+2026-08-22 Leisuwash China Leisuwash 360 Plus    31240885.0            NaN  Закупка товара
+
