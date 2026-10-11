@@ -52,9 +52,11 @@ def check_quality(df, stage="ДО очистки"):
     # 2. Дубликаты
     report['Дубликаты'] = int(df.duplicated().sum())
 
-    # 3. Неверные даты
+    # 3. Неверные даты (ИСПРАВЛЕНО: явный ISO-формат)
     if 'date' in df.columns:
-        bad_dates = pd.to_datetime(df['date'], errors='coerce').isna().sum()
+        bad_dates = pd.to_datetime(
+            df['date'], format='%Y-%m-%d', errors='coerce'
+        ).isna().sum()
         report['Неверные даты'] = int(bad_dates)
 
     # 4. Отрицательные количества
@@ -112,7 +114,7 @@ print("=" * 60)
 print("ШАГ 1. Загрузка данных")
 print("=" * 60)
 
-# ПРАВКА 1: читаем ТН ВЭД как строку
+# Читаем ТН ВЭД как строку
 df_raw = pd.read_csv(DATA_PATH, dtype={'tnved_code': str})
 print(f"Строк загружено: {len(df_raw)}")
 print(f"Колонок: {len(df_raw.columns)}")
@@ -137,8 +139,8 @@ print("=" * 60)
 
 df = df_raw.copy()
 
-# 3.1 Дата
-df['date'] = pd.to_datetime(df['date'], errors='coerce')
+# 3.1 Дата (ИСПРАВЛЕНО: явный ISO-формат)
+df['date'] = pd.to_datetime(df['date'], format='%Y-%m-%d', errors='coerce')
 bad_dates = df['date'].isna().sum()
 print(f"Неверных дат найдено: {bad_dates}")
 
@@ -177,7 +179,7 @@ df['year'] = df['date'].dt.year
 df['month'] = df['date'].dt.month
 df['quarter'] = 'Q' + ((df['month'] - 1) // 3 + 1).astype(str)
 
-# 3.7 Очистка ТН ВЭД (ПРАВКА 3)
+# 3.7 Очистка ТН ВЭД
 if 'tnved_code' in df.columns:
     df['tnved_code'] = (
         df['tnved_code'].astype(str)
@@ -186,6 +188,11 @@ if 'tnved_code' in df.columns:
         .replace('9999999999', '')
         .str.strip()
     )
+
+# 3.8 Удаление дубликатов
+before_dedup = len(df)
+df = df.drop_duplicates().reset_index(drop=True)
+print(f"Удалено дубликатов: {before_dedup - len(df)}")
 
 print(f"Строк после очистки: {len(df)}")
 
