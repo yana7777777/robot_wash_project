@@ -201,7 +201,7 @@ print("Сохранение отчёта")
 print("=" * 60)
 
 if len(rules_apriori) > 0:
-    rules_apriori.to_csv(f'{REPORTS_DIR}/association_rules.csv', index=False)
+    rules_apriori.to_csv(f'data/association_rules.csv', index=False)
 
 with open(f'{REPORTS_DIR}/association_rules_report.txt', 'w', encoding='utf-8') as f:
     f.write("ОТЧЁТ: АССОЦИАТИВНЫЕ ПРАВИЛА\n")
