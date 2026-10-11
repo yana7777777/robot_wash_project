@@ -1,14 +1,38 @@
-pandas
-numpy
-matplotlib
-seaborn
-scikit-learn
-imbalanced-learn
-xgboost
-lightgbm
-catboost
-statsmodels
-prophet
-shap
-jupyter
-openpyxl
+# Core
+pandas>=2.0
+numpy>=1.24
+
+# Visualization
+matplotlib>=3.7
+seaborn>=0.12
+wordcloud>=1.9
+
+# ML — классика
+scikit-learn>=1.3
+imbalanced-learn>=0.11
+
+# Boosting
+xgboost>=2.0
+lightgbm>=4.0
+catboost>=1.2
+
+# Time series
+statsmodels>=0.14
+prophet>=1.1
+
+# Neural nets
+tensorflow>=2.13
+
+# Optimization
+scipy>=1.11
+optuna>=3.4
+
+# Association rules
+mlxtend>=0.23
+
+# NLP
+nltk>=3.8
+
+# Utils
+joblib>=1.3
+tqdm>=4.66
