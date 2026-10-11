@@ -89,7 +89,7 @@ print(f"Уникальных слов: {len(word_counts)}")
 print("\nТОП-15 слов:")
 print(top_words.head(15).to_string(index=False))
 
-top_words.to_csv(f'{REPORTS_DIR}/notes_top_words.csv', index=False)
+top_words.to_csv(f'data/notes_top_words.csv', index=False)
 
 
 # ============================================================

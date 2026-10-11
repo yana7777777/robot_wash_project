@@ -131,8 +131,8 @@ if len(anomalies) > 0:
     print(anomalies['income_article'].value_counts().head(10))
 
     # Сохранение аномалий
-    anomalies.to_csv(f'{REPORTS_DIR}/anomalies.csv', index=False)
-    print(f"\nСохранён: {REPORTS_DIR}/anomalies.csv")
+    anomalies.to_csv('data/anomalies.csv', index=False)
+    print(f"\nСохранён: data/anomalies.csv")
 
 
 # ============================================================

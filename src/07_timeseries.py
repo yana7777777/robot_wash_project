@@ -356,8 +356,8 @@ if pm_income is not None:
     plt.close()
     print("Сохранён: 33_income_forecast.png")
 
-    future_pred.to_csv(f'{REPORTS_DIR}/forecast_income_2027.csv', index=False)
-    print(f"Прогноз сохранён: {REPORTS_DIR}/forecast_income_2027.csv")
+    future_pred.to_csv(f'data/forecast_income_2027.csv', index=False)
+    print(f"Прогноз сохранён: data/forecast_income_2027.csv")
 
     avg_future = future_pred['yhat'].mean()
     print(f"\nСредняя прогнозная выручка на 24 мес. вперёд: {avg_future:,.0f} руб.")

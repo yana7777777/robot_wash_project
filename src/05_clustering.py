@@ -151,8 +151,8 @@ print(f"\nЛучший метод: {best_method}")
 clients['cluster'] = cluster_labels[best_method]
 
 # Сохраняем
-clients.to_csv('reports/clients_clusters.csv', index=False)
-print("Сохранён: reports/clients_clusters.csv")
+clients.to_csv('data/clients_clusters.csv', index=False)
+print("Сохранён: data/clients_clusters.csv")
 
 # ============================================================
 # ГРАФИКИ
