@@ -56,12 +56,16 @@ transactions = []
 for txn, group in df.groupby('txn'):
     items = set()
     for _, row in group.iterrows():
-        if row['income_article']:
-            items.add(f"IN:{row['income_article']}")
-        if row['expense_article']:
-            items.add(f"OUT:{row['expense_article']}")
-        if row['product_model']:
-            items.add(f"MODEL:{row['product_model']}")
+        inc = str(row['income_article']).strip() if row['income_article'] else ''
+        exp = str(row['expense_article']).strip() if row['expense_article'] else ''
+        mdl = str(row['product_model']).strip() if row['product_model'] else ''
+
+        if inc and inc.lower() != 'nan':
+            items.add(f"IN:{inc}")
+        if exp and exp.lower() != 'nan':
+            items.add(f"OUT:{exp}")
+        if mdl and mdl.lower() != 'nan':
+            items.add(f"MODEL:{mdl}")
     if len(items) >= 2:
         transactions.append(list(items))
 
