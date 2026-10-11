@@ -4,14 +4,17 @@ from datetime import datetime, timedelta
 
 random.seed(42)
 
-start_date = datetime(2022, 1, 1)
+start_date = datetime(2015, 1, 1)
 end_date = datetime(2026, 10, 31)
 
 legal_entities = ['ООО Ветерок', 'ООО Ромашка', 'ИП Иванов И.И.', 'ООО Заря']
 counterparties_purchase = ['Leisuwash China', 'ТрансЛогистик', 'ФТС', 'Банк Т-Банк']
 counterparties_sale = ['ООО Мойка', 'ООО Луна', 'ООО Автомойка-Юг', 'ООО Мойка-Север',
                        'ООО Чистый Город', 'ООО ТехРегионЭнерго', 'ООО СТД Групп',
-                       'ООО Заволжье', 'ИП Быков', 'ИП Петров', 'ООО Авто-Сервис']
+                       'ООО Заволжье', 'ИП Быков', 'ИП Петров', 'ООО Авто-Сервис',
+                       'ООО АкваПром', 'ООО Север-Мойка', 'ИП Сидоров', 'ООО ЭкоМойка',
+                       'ООО Сити-Сервис', 'ООО Гранд-Мойка', 'ИП Кузнецов',
+                       'ООО МегаМойка', 'ООО Урал-Сервис']
 product_models = ['Leisuwash 360 Plus', 'Leisuwash 360', 'Запчасти', '']
 income_articles = ['Продажа робота', 'Монтаж', 'Продажа запчастей', 'Сервисное обслуживание']
 expense_articles = ['Закупка товара', 'Доставка', 'Таможенный сбор',
@@ -20,7 +23,12 @@ expense_articles = ['Закупка товара', 'Доставка', 'Тамо
 months_ru = {1: 'Январь', 2: 'Февраль', 3: 'Март', 4: 'Апрель', 5: 'Май', 6: 'Июнь',
              7: 'Июль', 8: 'Август', 9: 'Сентябрь', 10: 'Октябрь', 11: 'Ноябрь', 12: 'Декабрь'}
 
-exchange_rates = {2022: 7.5, 2023: 8.18, 2024: 8.18, 2025: 9.0, 2026: 9.5}
+# Курсы валют по годам (условные единицы)
+exchange_rates = {
+    2015: 6.20, 2016: 6.35, 2017: 6.50, 2018: 6.75,
+    2019: 6.95, 2020: 7.10, 2021: 7.30, 2022: 7.50,
+    2023: 8.18, 2024: 8.18, 2025: 9.00, 2026: 9.50
+}
 
 
 def get_exchange_rate(date):
@@ -30,10 +38,15 @@ def get_exchange_rate(date):
 
 
 def get_vat_rate(date):
-    """НДС: 20% до 2026 года, 22% с 1 января 2026."""
+    """НДС:
+       - 18% с 2015 по 2018
+       - 20% с 2019 по 2025
+       - 22% с 2026"""
     if date.year >= 2026:
         return 22
-    return 20
+    elif date.year >= 2019:
+        return 20
+    return 18
 
 
 def generate_clean_row():
@@ -302,8 +315,17 @@ def generate_dirty_row():
     return row
 
 
-clean_rows = [generate_clean_row() for _ in range(300)]
-dirty_rows = [generate_dirty_row() for _ in range(50)]
+# ============================================================
+# ГЕНЕРАЦИЯ ДАТАСЕТА
+# ============================================================
+N_CLEAN = 5000
+N_DIRTY = 100
+
+print(f"Генерация {N_CLEAN + N_DIRTY} строк за период 2015-01-01 ... 2026-10-31")
+print("Это может занять ~30 секунд...")
+
+clean_rows = [generate_clean_row() for _ in range(N_CLEAN)]
+dirty_rows = [generate_dirty_row() for _ in range(N_DIRTY)]
 all_rows = clean_rows + dirty_rows
 random.shuffle(all_rows)
 
@@ -316,5 +338,6 @@ cols = ['date', 'year', 'month', 'month_name', 'quarter', 'legal_entity', 'count
 df = df[cols]
 
 df.to_csv('robot_wash_extended.csv', index=False)
-print("Датасет создан: robot_wash_extended.csv")
-print(f"Всего строк: {len(df)} (чистых: 300, грязных: 50)")
+print(f"Датасет создан: robot_wash_extended.csv")
+print(f"Всего строк: {len(df)} (чистых: {N_CLEAN}, грязных: {N_DIRTY})")
+print(f"Диапазон дат: {df['date'].min()} ... {df['date'].max()}")
