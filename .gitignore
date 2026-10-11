@@ -1,8 +1,46 @@
+# Виртуальное окружение
 venv/
+env/
+.venv/
+
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.pytest_cache/
 .ipynb_checkpoints/
-.DS_Store
-*.xlsx
+
+# Jupyter
+*.ipynb
+
+# Логи и временные файлы
 *.log
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# CatBoost
 catboost_info/
+
+# Данные (раскомментируй, если не хочешь пушить в репо)
+# data/*.csv
+# reports/*.csv
+
+# Модели (раскомментируй, если не хочешь пушить)
+# models/*.pkl
+# models/*.h5
+
+# Отчёты и графики (раскомментируй, если не хочешь пушить)
+# reports/*.txt
+# images/*.png
+
+# Окружение
+.env
