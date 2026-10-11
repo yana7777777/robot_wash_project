@@ -1,0 +1,33 @@
+ОТЧЁТ О СОЗДАННЫХ ПРИЗНАКАХ
+==================================================
+
+Датасет транзакций: data/robot_wash_features.csv
+  Строк: 330
+  Колонок: 47
+
+Датасет по месяцам: data/robot_wash_monthly.csv
+  Строк: 58
+  Колонок: 23
+
+Новые признаки (транзакции):
+  - profit
+  - total_amount
+  - is_income
+  - is_expense
+  - is_import
+  - is_robot_sale
+  - is_service
+  - is_customs
+  - is_logistics
+  - day_of_week
+  - day_of_month
+  - week_of_year
+  - season
+  - quarter_num
+  - days_since_start
+  - customs_share
+  - vat_share
+  - logistics_share
+  - bank_share
+  - unit_price
+  - unit_cost
