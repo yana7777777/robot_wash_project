@@ -1,0 +1,30 @@
+ОТЧЁТ: АССОЦИАТИВНЫЕ ПРАВИЛА
+======================================================================
+
+Транзакций: 7207
+Уникальных items: 16
+
+APRIORI:
+  Частых наборов: 57
+  Правил: 82
+
+ТОП-15 правил по lift:
+  {'IN:nan', 'MODEL:Leisuwash 360'} → {'OUT:Закупка товара'} (sup=0.022, conf=1.000, lift=17.41)
+  {'OUT:Закупка товара'} → {'IN:nan', 'MODEL:Leisuwash 360'} (sup=0.022, conf=0.382, lift=17.41)
+  {'MODEL:Leisuwash 360 Plus', 'IN:nan'} → {'OUT:Закупка товара'} (sup=0.036, conf=0.996, lift=17.34)
+  {'OUT:Закупка товара'} → {'MODEL:Leisuwash 360 Plus', 'IN:nan'} (sup=0.036, conf=0.635, lift=17.34)
+  {'IN:Продажа запчастей'} → {'MODEL:Запчасти', 'OUT:nan'} (sup=0.090, conf=1.000, lift=11.07)
+  {'MODEL:Запчасти'} → {'IN:Продажа запчастей', 'OUT:nan'} (sup=0.090, conf=1.000, lift=11.07)
+  {'IN:Продажа запчастей', 'OUT:nan'} → {'MODEL:Запчасти'} (sup=0.090, conf=1.000, lift=11.07)
+  {'MODEL:Запчасти', 'OUT:nan'} → {'IN:Продажа запчастей'} (sup=0.090, conf=1.000, lift=11.07)
+  {'IN:Продажа запчастей'} → {'MODEL:Запчасти'} (sup=0.090, conf=1.000, lift=11.07)
+  {'MODEL:Запчасти'} → {'IN:Продажа запчастей'} (sup=0.090, conf=1.000, lift=11.07)
+  {'OUT:nan', 'MODEL:Leisuwash 360'} → {'IN:Продажа робота'} (sup=0.104, conf=1.000, lift=3.90)
+  {'IN:Продажа робота'} → {'OUT:nan', 'MODEL:Leisuwash 360'} (sup=0.104, conf=0.406, lift=3.90)
+  {'MODEL:Leisuwash 360 Plus', 'OUT:nan'} → {'IN:Продажа робота'} (sup=0.154, conf=1.000, lift=3.90)
+  {'IN:Продажа робота'} → {'MODEL:Leisuwash 360 Plus', 'OUT:nan'} (sup=0.154, conf=0.603, lift=3.90)
+  {'OUT:Таможенный сбор'} → {'IN:nan', 'MODEL:nan'} (sup=0.057, conf=1.000, lift=3.77)
+
+FP-GROWTH:
+  Частых наборов: 57
+  Правил: 82
