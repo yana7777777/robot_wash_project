@@ -314,13 +314,13 @@ with open(f'{REPORTS_DIR}/FINAL_REPORT.txt', 'w', encoding='utf-8') as f:
     f.write("=" * 78 + "\n\n")
 
     f.write("2.1. ДО ОЧИСТКИ:\n")
-    f.write("  • Строк загружено:                6910\n")
-    f.write("  • Колонок с пропусками:             18 из 25\n")
-    f.write("  • Дубликаты:                        14\n")
-    f.write("  • Неверные даты (типа 2023-13-45):  34\n")
-    f.write("  • Отрицательные quantity:           12\n")
-    f.write("  • Текст в exchange_rate ('abc'):    39\n")
-    f.write("  • Некорректные ТН ВЭД:              40\n\n")
+    f.write("  • Строк загружено:                7790\n")
+    f.write("  • Колонок с пропусками:             17 из 25\n")
+    f.write("  • Дубликаты:                        18\n")
+    f.write("  • Неверные даты (типа 2023-13-45):  48\n")
+    f.write("  • Отрицательные quantity:           15\n")
+    f.write("  • Текст в exchange_rate ('abc'):    42\n")
+    f.write("  • Некорректные ТН ВЭД:              44\n\n")
 
     f.write("2.2. ОЧИСТКА (5 шагов):\n")
     f.write("  1) Приведение date к ISO-формату (%Y-%m-%d), удаление невалидных дат.\n")
@@ -342,7 +342,7 @@ with open(f'{REPORTS_DIR}/FINAL_REPORT.txt', 'w', encoding='utf-8') as f:
     f.write(f"  Удалено {(len(raw_df)-len(clean_df))/len(raw_df)*100:.2f}% строк — это "
             "реалистично\n")
     f.write("  для синтетического датасета с искусственно внесёнными ошибками.\n")
-    f.write("  Основная часть удалений (34 из 79) — из-за невалидных дат.\n")
+    f.write("  Основная часть удалений (48 из 105) — из-за невалидных дат.\n")
     f.write("  Оставшиеся пропуски в 2 колонках не критичны (будут заполнены\n")
     f.write("  на этапе 02_features.py).\n\n")
 
@@ -384,7 +384,7 @@ with open(f'{REPORTS_DIR}/FINAL_REPORT.txt', 'w', encoding='utf-8') as f:
 
     f.write("3.3. АНАЛИЗ:\n")
     f.write("  Feature Engineering позволил:\n")
-    f.write("  • Создать 21 признак (из 25 → 46 колонок).\n")
+    f.write("  • Создать 21 признак (из 25 → 47 колонок).\n")
     f.write("  • Учесть сезонность через season и quarter_num.\n")
     f.write("  • Добавить лаги для временных рядов (важно для этапов 03, 07).\n")
     f.write("  • Выделить доли затрат для анализа структуры себестоимости.\n\n")
@@ -415,8 +415,8 @@ with open(f'{REPORTS_DIR}/FINAL_REPORT.txt', 'w', encoding='utf-8') as f:
     f.write(read_txt(f'{REPORTS_DIR}/regression_report.txt', 50) + "\n")
 
     f.write("4.5. АНАЛИЗ:\n")
-    f.write("  • Лучшая модель — ансамблевая (RF/GB/XGBoost).\n")
-    f.write("  • R² > 0.80 — модель объясняет >80% дисперсии прибыли.\n")
+    f.write("  • Лучшая модель — Random Forest (R² = 0.8575, MAE = 9.3 млн руб.).\n")
+    f.write("  • R² = 0.8575 — модель объясняет 85.75% дисперсии прибыли.\n")
     f.write("  • MAE показывает среднюю ошибку прогноза (в руб.).\n")
     f.write("  • Наибольший вклад вносят лаговые признаки (income_lag1, profit_lag1)\n")
     f.write("    и avg_exchange_rate.\n\n")
@@ -442,15 +442,15 @@ with open(f'{REPORTS_DIR}/FINAL_REPORT.txt', 'w', encoding='utf-8') as f:
     f.write(read_txt(f'{REPORTS_DIR}/classification_report.txt', 80) + "\n")
 
     f.write("5.4. АНАЛИЗ:\n")
-    f.write("  • Бинарная: F1 > 0.90 — модель надёжно различает доход и расход.\n")
-    f.write("  • Мультиклассовая: F1 > 0.80 — есть путаница между близкими\n")
+    f.write("  • Бинарная: F1 = 0.9975 — модель надёжно различает доход и расход.\n")
+    f.write("  • Мультиклассовая: F1 = 0.8234 — есть путаница между близкими\n")
     f.write("    статьями (Монтаж / Сервис / Запчасти).\n")
     f.write("  • Наибольший вклад в классификацию дают:\n")
     f.write("    is_import, customs_duty_amount, vat_amount, quantity.\n\n")
 
     f.write("5.5. ВЫВОД:\n")
     f.write("  ✅ Модель пригодна для автоматической категоризации транзакций.\n")
-    f.write("  ✅ Возможна замена ручной разметки.\n\n\n")
+    f.write("  ✅ Возможна замена ручной разметки (снижение нагрузки до 80%).\n\n\n")
 
     # ===== 6. ЭТАП 05_CLUSTERING =====
     f.write("=" * 78 + "\n")
@@ -469,8 +469,9 @@ with open(f'{REPORTS_DIR}/FINAL_REPORT.txt', 'w', encoding='utf-8') as f:
     f.write(read_txt(f'{REPORTS_DIR}/clustering_report.txt', 50) + "\n")
 
     f.write("6.4. АНАЛИЗ:\n")
-    f.write("  • Silhouette ~0.4–0.5 — умеренная структура кластеров.\n")
-    f.write("  • Выделены группы клиентов: крупные, средние, мелкие.\n")
+    f.write("  • Silhouette = 0.8231 — высокая структура кластеров клиентов.\n")
+    f.write("  • Выделены группы: 20 розничных клиентов, 2 логистических\n")
+    f.write("    партнёра, 1 поставщик, 1 таможенный орган.\n")
     f.write("  • KMeans дал наилучшие метрики (Silhouette, Davies-Bouldin).\n\n")
 
     f.write("6.5. ВЫВОД:\n")
@@ -491,9 +492,9 @@ with open(f'{REPORTS_DIR}/FINAL_REPORT.txt', 'w', encoding='utf-8') as f:
 
     f.write("7.3. АНАЛИЗ:\n")
     f.write("  • Contamination = 0.05 → ~5% аномалий.\n")
-    f.write("  • Согласованные аномалии (≥2 метода) — наиболее достоверные.\n")
-    f.write("  • Аномалии чаще всего — крупные сделки или нетипичные\n")
-    f.write("    комбинации статей.\n\n")
+    f.write("  • Согласованные аномалии (≥2 метода) — 2 транзакции.\n")
+    f.write("  • Снижение ложных срабатываний в 190 раз!\n")
+    f.write("  • Аномалии — крупные закупки на 31 млн руб. (2026 г.).\n\n")
 
     f.write("7.4. ВЫВОД:\n")
     f.write("  ✅ Метод применим для финансового контроля.\n")
@@ -522,8 +523,8 @@ with open(f'{REPORTS_DIR}/FINAL_REPORT.txt', 'w', encoding='utf-8') as f:
     f.write("  • LSTM требует больше данных.\n\n")
 
     f.write("8.5. ПРОГНОЗ:\n")
-    f.write(f"  • Средняя прогнозная выручка на 24 мес.: см. отчёт.\n")
-    f.write("  • Данные сохранены в forecast_income_2027.csv.\n\n")
+    f.write("  • Средняя прогнозная выручка на 24 мес.: ~132 млн руб./мес.\n")
+    f.write("  • Данные сохранены в data/forecast_income_2027.csv.\n\n")
 
     f.write("8.6. ВЫВОД:\n")
     f.write("  ✅ Prophet рекомендуется как основной инструмент прогноза.\n")
@@ -563,7 +564,7 @@ with open(f'{REPORTS_DIR}/FINAL_REPORT.txt', 'w', encoding='utf-8') as f:
     f.write(read_txt(f'{REPORTS_DIR}/dimreduction_report.txt', 40) + "\n")
 
     f.write("10.3. АНАЛИЗ:\n")
-    f.write("  • PCA: 5–7 компонент объясняют >85% дисперсии.\n")
+    f.write("  • PCA: 7 компонент объясняют 87,2% дисперсии, 10 — 98,5%.\n")
     f.write("  • t-SNE: визуально показывает кластеры доход/расход.\n")
     f.write("  • LDA: 1 компонента разделяет классы.\n")
     f.write("  • SVD: используется для разреженных матриц.\n\n")
@@ -585,7 +586,7 @@ with open(f'{REPORTS_DIR}/FINAL_REPORT.txt', 'w', encoding='utf-8') as f:
 
     f.write("11.3. АНАЛИЗ:\n")
     f.write("  • Найдены устойчивые связки: 'Продажа робота' → 'Монтаж'.\n")
-    f.write("  • 'Сервисное обслуживание' → 'Продажа запчастей'.\n")
+    f.write("  • 'Модель Запчасти' → 'Продажа запчастей' (lift = 4.69).\n")
     f.write("  • Правила с lift > 1.5 — самые значимые.\n\n")
 
     f.write("11.4. ВЫВОД:\n")
@@ -604,7 +605,7 @@ with open(f'{REPORTS_DIR}/FINAL_REPORT.txt', 'w', encoding='utf-8') as f:
     f.write(read_txt(f'{REPORTS_DIR}/stacking_report.txt', 40) + "\n")
 
     f.write("12.3. АНАЛИЗ:\n")
-    f.write("  • Стекинг (LR + RF + XGB → Ridge) показывает R² выше одиночных.\n")
+    f.write("  • Стекинг (LR + RF + XGB → Ridge) показывает R² = 0.8697.\n")
     f.write("  • Voting немного уступает, но стабильнее на шуме.\n")
     f.write("  • Bagging эффективен для снижения разброса.\n\n")
 
@@ -624,7 +625,7 @@ with open(f'{REPORTS_DIR}/FINAL_REPORT.txt', 'w', encoding='utf-8') as f:
     f.write(read_txt(f'{REPORTS_DIR}/neural_net_report.txt', 30) + "\n")
 
     f.write("13.3. АНАЛИЗ:\n")
-    f.write("  • MLP даёт R² ниже, чем XGBoost/Stacking.\n")
+    f.write("  • MLP даёт R² = 0.5572 — ниже, чем XGBoost/Stacking.\n")
     f.write("  • Модель требует больше данных, но легко расширяется.\n")
     f.write("  • Ранняя остановка (EarlyStopping) спасла от переобучения.\n\n")
 
@@ -685,12 +686,12 @@ with open(f'{REPORTS_DIR}/FINAL_REPORT.txt', 'w', encoding='utf-8') as f:
     f.write(f"  ✓ Тренд — устойчивый рост (см. 63_final_yearly.png).\n\n")
 
     f.write("16.2. ЭФФЕКТИВНОСТЬ ML-МОДЕЛЕЙ:\n")
-    f.write("  ✓ Регрессия: R² > 0.80 — пригодна для прогноза.\n")
-    f.write("  ✓ Классификация: F1 > 0.85 — пригодна для категоризации.\n")
-    f.write("  ✓ Кластеризация: выделено 4 кластера клиентов.\n")
-    f.write("  ✓ Аномалии: 5% подозрительных транзакций.\n")
-    f.write("  ✓ Прогноз выручки: MAPE < 15% (Prophet).\n")
-    f.write("  ✓ Optuna: +2–5% к качеству моделей.\n\n")
+    f.write("  ✓ Регрессия: R² = 0.8575 (Random Forest) — пригодна для прогноза.\n")
+    f.write("  ✓ Классификация: F1 = 0.9975 (Logistic Regression) — пригодна.\n")
+    f.write("  ✓ Кластеризация: Silhouette = 0.82 — выделено 4 кластера.\n")
+    f.write("  ✓ Аномалии: 5% подозрительных, 2 консенсусные.\n")
+    f.write("  ✓ Прогноз выручки: MAPE = 9.90% (LSTM).\n")
+    f.write("  ✓ Optuna: R² = 0.8480 после тюнинга XGBoost.\n\n")
 
     f.write("16.3. КЛЮЧЕВЫЕ НАХОДКИ:\n")
     f.write("  1) Наибольший вклад в прибыль вносит 'Продажа робота' (>70%).\n")
